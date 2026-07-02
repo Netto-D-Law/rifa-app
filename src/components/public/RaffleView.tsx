@@ -110,14 +110,19 @@ export default function RaffleView({
       </div>
 
       {/* Hero / ticket do prêmio */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-teal-800 via-cyan-800 to-rotary-blue px-5 py-9">
-        <div className="mx-auto max-w-4xl">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/rotary-butanta-logo.jpg"
-            alt="Rotary Club Butantã"
-            className="mb-5 h-20 w-auto rounded-lg object-contain shadow-lg"
-          />
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#0B1220] via-[#131b3a] to-[#1c2b52] px-5 py-9">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[200px_1fr_200px]">
+          {/* Coluna esquerda: arte/logo do clube, centralizada */}
+          <div className="flex justify-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/rotary-butanta-logo.jpg"
+              alt="Rotary Club Butantã"
+              className="h-32 w-auto rounded-xl object-contain shadow-xl ring-1 ring-rotary-gold/40"
+            />
+          </div>
+
+          {/* Centro: card branco do prêmio */}
           <div className="grid overflow-hidden rounded-2xl bg-white shadow-xl md:grid-cols-[220px_1fr]">
             <div className="flex min-h-[180px] items-center justify-center bg-rotary-bluePale">
               {raffle.imagem_url ? (
@@ -170,6 +175,12 @@ export default function RaffleView({
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Coluna direita: reservada para os dados do artista */}
+          <div className="hidden flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 p-4 text-center text-white/60 md:flex">
+            <span className="text-xs font-semibold uppercase tracking-wide">Sobre o artista</span>
+            <span className="mt-1 text-[11px]">(em breve)</span>
           </div>
         </div>
       </div>
