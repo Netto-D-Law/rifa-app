@@ -9,7 +9,7 @@ import NumberGrid from './NumberGrid';
 import CartBar from './CartBar';
 import CheckoutModal from './CheckoutModal';
 
-type Tab = 'premio' | 'todos' | 'disponiveis' | 'vendidos';
+type Tab = 'premio' | 'todos' | 'disponiveis' | 'vendidos' | 'artista';
 
 export default function RaffleView({
   raffle,
@@ -87,6 +87,7 @@ export default function RaffleView({
     { id: 'todos', label: '🔢 Todos os números' },
     { id: 'disponiveis', label: '✅ Disponíveis' },
     { id: 'vendidos', label: '📋 Vendidos' },
+    { id: 'artista', label: '🎨 Sobre o artista' },
   ];
 
   return (
@@ -110,15 +111,18 @@ export default function RaffleView({
       </div>
 
       {/* Hero / ticket do prêmio */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#0B1220] via-[#131b3a] to-[#1c2b52] px-5 py-9">
-        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[200px_1fr_200px]">
-          {/* Coluna esquerda: arte/logo do clube, centralizada */}
+      <div
+        className="relative overflow-hidden bg-cover bg-center px-5 py-9"
+        style={{ backgroundImage: "linear-gradient(to bottom right, rgba(6,10,20,0.82), rgba(15,25,45,0.8)), url('/fundo-site.jpg')" }}
+      >
+        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[220px_1fr_220px]">
+          {/* Coluna esquerda: logo do clube, ocupando a maior parte do espaço */}
           <div className="flex justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/rotary-butanta-logo.jpg"
-              alt="Rotary Club Butantã"
-              className="h-32 w-auto rounded-xl object-contain shadow-xl ring-1 ring-rotary-gold/40"
+              src="/logo-butanta-transparente.png"
+              alt="Rotary Club de São Paulo Butantã"
+              className="h-auto w-full max-w-[220px] object-contain drop-shadow-lg"
             />
           </div>
 
@@ -177,11 +181,20 @@ export default function RaffleView({
             </div>
           </div>
 
-          {/* Coluna direita: reservada para os dados do artista */}
-          <div className="hidden flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 p-4 text-center text-white/60 md:flex">
-            <span className="text-xs font-semibold uppercase tracking-wide">Sobre o artista</span>
-            <span className="mt-1 text-[11px]">(em breve)</span>
-          </div>
+          {/* Coluna direita: teaser do artista, com link para a aba completa */}
+          <button
+            onClick={() => setTab('artista')}
+            className="hidden flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 p-4 text-center text-white/80 transition hover:bg-white/10 md:flex"
+          >
+            <span className="text-xs font-semibold uppercase tracking-wide text-rotary-gold">
+              O artista
+            </span>
+            <span className="mt-1 text-sm font-semibold">OJAS (Odair Silva)</span>
+            <span className="mt-2 text-[11px] leading-relaxed text-white/60">
+              Pintura autoral em tons de azul, inspirada na cultura nordestina.
+            </span>
+            <span className="mt-2 text-[11px] font-semibold underline">Ver mais →</span>
+          </button>
         </div>
       </div>
 
@@ -293,6 +306,86 @@ export default function RaffleView({
                   </tbody>
                 </table>
               )}
+            </div>
+          )}
+
+          {tab === 'artista' && (
+            <div>
+              <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                <div className="shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={raffle.imagem_url || '/rotary-butanta-logo.jpg'}
+                    alt="Samurai Azul (Bushido) — OJAS"
+                    className="w-full max-w-[220px] rounded-xl object-cover shadow-md"
+                  />
+                  <div className="mt-2 text-center text-[11px] text-slate-400">
+                    &quot;Samurai Azul (Bushido)&quot;, 2022 · acrílica sobre tela · 150x100cm
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-xs font-bold uppercase tracking-wide text-rotary-goldDark">
+                    O artista
+                  </div>
+                  <h2 className="font-display mt-1 text-xl font-bold text-rotary-blueDark">
+                    OJAS (Odair Silva)
+                  </h2>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    Artista visual, designer e cenógrafo nascido no Maranhão e radicado em
+                    Teresina (PI) desde os 5 anos de idade. Autodidata, constrói seu estilo a
+                    partir da mistura entre ilustração editorial, publicidade e design com a
+                    influência dos mestres da Renascença, do cubismo geométrico, da pop art e da
+                    street art.
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    Sua marca registrada são figuras estilizadas em tons de azul sobre fundos
+                    geométricos multicoloridos que remetem às paisagens urbanas do Nordeste,
+                    contando histórias do cotidiano e celebrando a diversidade e a musicalidade
+                    da cultura nordestina.
+                  </p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                    A obra desta rifa,{' '}
+                    <strong className="text-rotary-blueDark">&quot;Samurai Azul (Bushido)&quot;</strong>
+                    , foi inspirada nos filmes de samurais do cineasta japonês Akira Kurosawa
+                    (Os Sete Samurais, Ran, Kagemusha). A pintura retrata um guerreiro em posição
+                    de combate, trajando armadura rica em detalhes e portando a katana — uma
+                    homenagem ao Bushidô, o código de honra e moral que guiava os samurais.
+                  </p>
+
+                  <div className="mt-4">
+                    <div className="text-xs font-bold uppercase tracking-wide text-rotary-goldDark">
+                      Reconhecimentos
+                    </div>
+                    <ul className="mt-2 space-y-1 text-sm text-slate-600">
+                      <li>🏆 Luxembourg Art Prize — Pinacothèque, Grão-Ducado de Luxemburgo (2022)</li>
+                      <li>
+                        🏆 6º Anuário de Artes da Luxus Magazine, São Paulo — único artista do
+                        Piauí selecionado (2022)
+                      </li>
+                      <li>🏆 Exposição Internacional Artistas pela Paz — ArtShout, Londres (2022)</li>
+                      <li>🏆 Prêmio Museu da Casa Brasileira — Design, São Paulo (2011)</li>
+                      <li>🏆 19º Prêmio Fernando Pini de Excelência Gráfica (2010)</li>
+                      <li>🏆 Prêmio profissional do ano TV Clube/Globo (2018)</li>
+                    </ul>
+                  </div>
+
+                  <div className="mt-4 rounded-xl bg-rotary-bluePale p-4">
+                    <div className="text-xs font-bold uppercase tracking-wide text-rotary-blueDark">
+                      Em cartaz
+                    </div>
+                    <p className="mt-1 text-sm text-slate-600">
+                      &quot;A Arte que Toca a Alma: Som, Imagem e Movimento&quot; — exposição
+                      individual imersiva com 20 pinturas, instalação de pássaros interativos e
+                      telas animadas por IA, na Galeria Dora Parentes (SESC Cajuína, Teresina/PI).
+                    </p>
+                  </div>
+
+                  <div className="mt-4 text-sm text-slate-500">
+                    Contato do artista: ojas.br@gmail.com · +55 86 99422.1117 · @ojas.br
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>
