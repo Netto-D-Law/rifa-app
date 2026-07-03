@@ -28,11 +28,29 @@ export default async function HomePage() {
     );
   }
 
-  const { data: numeros } = await supabase
-    .from('raffle_numbers')
-    .select('*')
-    .eq('raffle_id', raffle.id)
-    .order('numero', { ascending: true });
+  // IMPORTANTE: o Supabase/PostgREST limita consultas a 1000 linhas por
+  // padrão. Sem o .range() abaixo, rifas com mais de 1000 números
+  // (ex.: expandidas via "Configurações") teriam os números extras
+  // silenciosamente cortados da grade pública. Buscamos em lotes de até
+  // 1000 linhas até cobrir o total_numeros da rifa, para funcionar em
+  // qualquer tamanho sem depender de um limite fixo.
+  const PAGE_SIZE = 1000;
+  const totalNumeros = raffle.total_numeros ?? 0;
+  const numeros: RaffleNumber[] = [];
 
-  return <RaffleView raffle={raffle as Raffle} numerosIniciais={(numeros ?? []) as RaffleNumber[]} />;
+  for (let inicio = 0; inicio < totalNumeros; inicio += PAGE_SIZE) {
+    const fim = Math.min(inicio + PAGE_SIZE, totalNumeros) - 1;
+    const { data: pagina, error: paginaError } = await supabase
+      .from('raffle_numbers')
+      .select('*')
+      .eq('raffle_id', raffle.id)
+      .order('numero', { ascending: true })
+      .range(inicio, fim);
+
+    if (paginaError) break;
+    if (pagina) numeros.push(...(pagina as RaffleNumber[]));
+    if (!pagina || pagina.length < fim - inicio + 1) break;
+  }
+
+  return <RaffleView raffle={raffle as Raffle} numerosIniciais={numeros} />;
 }
