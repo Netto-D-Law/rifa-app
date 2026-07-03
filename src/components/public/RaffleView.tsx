@@ -110,23 +110,14 @@ export default function RaffleView({
         </Link>
       </div>
 
-      {/* Hero / ticket do prêmio */}
+      {/* Hero / ticket do prêmio — o fundo já traz o logo e o nome do
+          clube integrados, então não sobrepomos outro logo por cima. */}
       <div
-        className="relative overflow-hidden bg-cover bg-center px-5 py-9"
-        style={{ backgroundImage: "linear-gradient(to bottom right, rgba(6,10,20,0.82), rgba(15,25,45,0.8)), url('/fundo-site.jpg')" }}
+        className="relative overflow-hidden bg-cover bg-center px-5 py-10"
+        style={{ backgroundImage: "url('/marca-agua-hero.jpg')" }}
       >
-        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[220px_1fr_220px]">
-          {/* Coluna esquerda: logo do clube, ocupando a maior parte do espaço */}
-          <div className="flex justify-center">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/logo-butanta-transparente.png"
-              alt="Rotary Club de São Paulo Butantã"
-              className="h-auto w-full max-w-[220px] object-contain drop-shadow-lg"
-            />
-          </div>
-
-          {/* Centro: card branco do prêmio */}
+        <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[1fr_220px]">
+          {/* Card branco do prêmio */}
           <div className="grid overflow-hidden rounded-2xl bg-white shadow-xl md:grid-cols-[220px_1fr]">
             <div className="flex min-h-[180px] items-center justify-center bg-rotary-bluePale">
               {raffle.imagem_url ? (
@@ -181,16 +172,16 @@ export default function RaffleView({
             </div>
           </div>
 
-          {/* Coluna direita: teaser do artista, com link para a aba completa */}
+          {/* Teaser do artista, com link para a aba completa */}
           <button
             onClick={() => setTab('artista')}
-            className="hidden flex-col items-center justify-center rounded-xl border border-white/10 bg-white/5 p-4 text-center text-white/80 transition hover:bg-white/10 md:flex"
+            className="hidden flex-col items-center justify-center rounded-xl border border-white/20 bg-black/30 p-4 text-center text-white backdrop-blur-sm transition hover:bg-black/40 md:flex"
           >
             <span className="text-xs font-semibold uppercase tracking-wide text-rotary-gold">
               O artista
             </span>
             <span className="mt-1 text-sm font-semibold">OJAS (Odair Silva)</span>
-            <span className="mt-2 text-[11px] leading-relaxed text-white/60">
+            <span className="mt-2 text-[11px] leading-relaxed text-white/80">
               Pintura autoral em tons de azul, inspirada na cultura nordestina.
             </span>
             <span className="mt-2 text-[11px] font-semibold underline">Ver mais →</span>
