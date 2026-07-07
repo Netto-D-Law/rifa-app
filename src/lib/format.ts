@@ -4,7 +4,6 @@ export function formatMoeda(valor: number): string {
     currency: 'BRL',
   }).format(valor);
 }
-
 export function formatDataHora(iso: string | null): string {
   if (!iso) return '—';
   const d = new Date(iso);
@@ -17,11 +16,9 @@ export function formatDataHora(iso: string | null): string {
     minute: '2-digit',
   });
 }
-
 export function padNumero(numero: number, total: number): string {
   return String(numero).padStart(String(total).length, '0');
 }
-
 export function maskNome(nome: string | null | undefined): string {
   if (!nome) return 'Comprador';
   const partes = nome.trim().split(/\s+/);
