@@ -115,14 +115,14 @@ export default function RaffleView({
         </Link>
       </div>
 
-      {/* Hero / ticket do prêmio — o fundo-site.jpg preenche toda a faixa (pode
+      {/* Hero / ticket do prêmio — o fundo-site.svg preenche toda a faixa (pode
           esticar/cortar sem problema) e a marca d'água completa (logo + nome
           do clube) fica intacta e centralizada na coluna esquerda, maior.
           Padding vertical reduzido para aproximar as abas do fim do card
           central. */}
       <div
         className="relative overflow-hidden bg-cover bg-center px-5 pb-4 pt-8"
-        style={{ backgroundImage: "url('/fundo-site.jpg')" }}
+        style={{ backgroundImage: "url('/fundo-site.svg')" }}
       >
         <div className="mx-auto grid max-w-6xl items-center gap-6 md:grid-cols-[300px_1fr_220px]">
           {/* Coluna esquerda: marca d'água completa, sem distorcer, maior e
